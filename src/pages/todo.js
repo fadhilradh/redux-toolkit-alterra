@@ -1,3 +1,4 @@
+import axios from "axios";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 
@@ -8,19 +9,29 @@ const TodoPage = () => {
   ]);
   const [newTodo, setNewTodo] = useState("");
 
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos")
-      .then((res) => res.json())
-      .then((json) => {
-        setTodos(json.slice(0, 10));
-        console.log(json);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  //   useEffect(() => {
+  //     fetch("https://jsonplaceholder.typicode.com/todos")
+  //       .then((res) => res.json())
+  //       .then((json) => {
+  //         setTodos(json.slice(0, 10));
+  //         console.log(json);
+  //       })
+  //       .catch((err) => console.error(err));
+  //   }, []);
+
+  //   useEffect(() => {
+  //     axios
+  //       .get("https://jsonplaceholder.typicode.com/todos")
+  //       .then((json) => {
+  //         setTodos(json.data.slice(0, 10));
+  //         console.log(json);
+  //       })
+  //       .catch((err) => console.error(err));
+  //   }, []);
 
   return (
     // <div className="w-full h-screen flex flex-col justify-center items-center">
-    <div className="w-full h-screen flex flex-col justify-center items-center">
+    <div className="w-full h-screen flex flex-col justify-center items-center mt-72">
       <h1 className="text-7xl font-bold text-blue-600 mb-20">todos</h1>
       <input
         className=" mb-10 w-2/3 shadow-md rounded-full px-6 py-2 border-2 border-slate-100 focus:outline-blue-500 "
