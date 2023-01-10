@@ -62,11 +62,11 @@ const TodoPage = () => {
                 className="cursor-pointer"
                 onChange={() => {
                   setTodos(
-                    todos.map((item) => {
-                      if (item.id === idx + 1) {
-                        return { ...item, completed: !item.completed };
+                    todos.map((todo) => {
+                      if (item.title === todo.title) {
+                        return { ...todo, completed: !todo.completed };
                       } else {
-                        return item;
+                        return todo;
                       }
                     })
                   );
