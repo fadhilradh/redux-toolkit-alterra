@@ -31,6 +31,9 @@ export default function App() {
               <li className="hover:text-blue-700 font-semibold cursor-pointer">
                 <Link to="/form">Form</Link>
               </li>
+              <li className="hover:text-blue-700 font-semibold cursor-pointer">
+                <Link to="/todo">Todo</Link>
+              </li>
             </span>
             <li className="text-2xl font-semibold">
               Jumlah Item di Keranjang :{" "}
