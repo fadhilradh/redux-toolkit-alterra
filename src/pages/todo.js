@@ -3,10 +3,7 @@ import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 
 const TodoPage = () => {
-  const [todos, setTodos] = useState([
-    { id: 1, title: "Tidur", completed: false },
-    { id: 2, title: "Mangan", completed: false },
-  ]);
+  const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
 
   //   useEffect(() => {
@@ -19,20 +16,20 @@ const TodoPage = () => {
   //       .catch((err) => console.error(err));
   //   }, []);
 
-  //   useEffect(() => {
-  //     axios
-  //       .get("https://jsonplaceholder.typicode.com/todos")
-  //       .then((json) => {
-  //         setTodos(json.data.slice(0, 10));
-  //         console.log(json);
-  //       })
-  //       .catch((err) => console.error(err));
-  //   }, []);
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/todos")
+      .then((json) => {
+        setTodos(json.data.slice(0, 10));
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
-    // <div className="w-full h-screen flex flex-col justify-center items-center">
-    <div className="w-full h-screen flex flex-col justify-center items-center mt-72">
-      <h1 className="text-7xl font-bold text-blue-600 mb-20">todos</h1>
+    <div className="w-full h-screen flex flex-col items-center mt-20">
+      <h1 className="text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-green-300 to-blue-600 mb-20">
+        todos
+      </h1>
       <input
         className=" mb-10 w-2/3 shadow-md rounded-full px-6 py-2 border-2 border-slate-100 focus:outline-blue-500 "
         placeholder="Add todo..."
@@ -44,7 +41,7 @@ const TodoPage = () => {
               ...todos,
               {
                 id: todos.length + 1,
-                text: newTodo,
+                title: newTodo,
                 completed: false,
               },
             ]);
@@ -53,42 +50,42 @@ const TodoPage = () => {
         }}
       />
       <ul className="self-start px-40 w-full">
-        {todos.map((todo, idx) => (
+        {todos.map((item, idx) => (
           <div
-            key={todo.title}
+            key={item.title}
             className="flex justify-between items-center py-2 border-b border-gray-200 w-full"
           >
             <span className="flex gap-x-4">
               <input
                 type="checkbox"
-                checked={todo.completed}
+                checked={item.completed}
                 className="cursor-pointer"
                 onChange={() => {
                   setTodos(
-                    todos.map((todo) => {
-                      if (todo.id === idx + 1) {
-                        return { ...todo, completed: !todo.completed };
+                    todos.map((item) => {
+                      if (item.id === idx + 1) {
+                        return { ...item, completed: !item.completed };
                       } else {
-                        return todo;
+                        return item;
                       }
                     })
                   );
                 }}
               />
               <li
-                key={todo.id}
+                key={item.id}
                 className={clsx(
-                  todo.completed && "line-through italic text-gray-400"
+                  item.completed && "line-through italic text-gray-400"
                 )}
               >
-                {todo.title}
+                {item.title}
               </li>
             </span>
             <button
-              onClick={(e) =>
-                setTodos(todos.filter((todo) => todo.id !== idx + 1))
+              onClick={() =>
+                setTodos(todos.filter((todo) => todo.title !== item.title))
               }
-              className="bg-gray-200 rounded-full h-10 w-10 p-1 text-[11px] font-semibold hover:bg-gray-400"
+              className="bg-gray-100 rounded-full h-10 w-10 p-1 text-[11px] font-semibold hover:bg-gray-400"
             >
               Delete
             </button>
@@ -96,7 +93,6 @@ const TodoPage = () => {
         ))}
       </ul>
     </div>
-    // </div>
   );
 };
 
